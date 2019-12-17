@@ -1,0 +1,42 @@
+<html>
+<head>
+  <title>Callback</title>
+  <script>
+    (function() {
+
+      const asyncTask1 = (callback) => {
+        setTimeout(() => {
+          executeCallback(callback, { message: 'aysncTask1' })
+        }, 1000)
+      }
+
+      const asyncTask2 = (callback, data) => {
+        setTimeout(() => {
+          console.log('param is %o', data);
+          executeCallback(callback, { message: 'aysncTask2' })
+        }, 1000)
+      }
+
+      const executeCallback = (callback, data) => {
+        if (callback && typeof callback === 'function') {
+          callback(data)
+        } else {
+          throw new Error('callback is not function');
+        }
+      }
+
+      asyncTask1((responseData1) => {
+        console.log('Done asyncTask1!', responseData1)
+
+        asyncTask2((responseData2) => {
+          console.log('Done asyncTask2!', responseData2)
+        }, responseData1)
+      })
+
+    })()
+  </script>
+</head>
+<body>
+
+</body>
+</html>

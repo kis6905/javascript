@@ -1,0 +1,42 @@
+<html>
+<head>
+  <title>Async - Await</title>
+  <script>
+    (function() {
+
+      const asyncTask1 = () => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve({ message: 'aysncTask1' })
+          }, 1000)
+        })
+      }
+
+      const asyncTask2 = (data) => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            console.log('param is %o', data);
+            resolve({ message: 'aysncTask2' })
+          }, 1000)
+        })
+      }
+      
+      // ES7 async-await
+      (async () => {
+        let data;
+        try {
+          data = await asyncTask1()
+          console.log('Done asyncTask1!', data)
+          data = await asyncTask2(data)
+          console.log('Done asyncTask12', data)
+        } catch(e) {
+          console.log(e)
+        }
+      })()
+    })()
+  </script>
+</head>
+<body>
+
+</body>
+</html>
