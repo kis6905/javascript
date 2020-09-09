@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>지뢰찾기 게임(Socar Test)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+    <style>
+      .content {
+        margin-top: 3rem;
+        text-align: center;
+      }
+      .mine-panel {
+        margin: auto;
+      }
+      .switch-area {
+        width: 145px;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <div class="content">
+          <div class="title">
+            <h2>지뢰찾기 게임(Socar Test)</h2>
+          </div>
+          <div class="mine-panel mt-5">
+            <div class="switch-area">
+              <v-switch v-model="onMap" class="mx-2" label="지뢰보이기"></v-switch>
+            </div>
+            <div v-for="(columns, y) in blockArray">
+              <v-btn
+                v-for="(block, x) in columns"
+                outlined
+                color="blue darken-1"
+                min-width="50"
+                min-height="50"
+                :disabled="block.clicked"
+                @click="handleClickBlock(x, y)">
+                <v-icon v-if="(failed && block.isMine) || (onMap && block.isMine)" size="small">mdi-mine</v-icon>
+                <span v-else-if="block.clicked">{{ block.value }}</span>
+              </v-btn>
+            </div>
+            <v-btn
+              class="mt-4"
+              color="green darken-1"
+              :dark="true"
+              @click="handleClickRetry">
+              <v-icon size="samll" class="mr-1">mdi-refresh</v-icon>
+              다시하기
+            </v-btn>
+          </div>
+        </div>
+        <v-dialog v-model="showFailedModal" max-width="350">
+          <v-card>
+            <v-card-title class="headline">이런! 지뢰를 밟았습니다!</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="green darken-1"
+                text
+                @click="handleClickRetry">
+                다시하기
+              </v-btn>
+              <v-btn
+                color="green darken-1"
+                text
+                @click="showFailedModal = false">
+                계속하기
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-app>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      data () {
+        return {
+          panelSize: 10,
+          blockArray: [],
+          showFailedModal: false,
+          onMap: false,
+          failed: false
+        }
+      },
+      created () {
+        this.init()
+      },
+      methods: {
+        init () {
+          this.showFailedModal = false
+          this.failed = false
+
+          const panelSize = this.panelSize
+          const totalBlockCount = panelSize * panelSize
+
+          let mineBlockNumbers = this.getMineBlockNumbers(panelSize, totalBlockCount - 1)
+          console.log('지뢰', mineBlockNumbers)
+
+          let blockNumber = 0
+          const rows = []
+          for (let y = 0; y < panelSize; y++) {
+            let columns = []
+            for (let x = 0; x < panelSize; x++) {
+              let isMine = false
+              if (mineBlockNumbers.includes(blockNumber)) {
+                isMine = true
+                mineBlockNumbers = mineBlockNumbers.filter(e => blockNumber != e)
+              }
+              columns.push({ blockNumber: blockNumber, isMine: isMine, clicked: false, value: 0 })
+              blockNumber++
+            }
+            rows.push(columns)
+          }
+          console.log('전체 Block', rows)
+          this.blockArray = rows
+        },
+        handleClickBlock (x, y) {
+          const block = this.blockArray[y][x]
+          if (block.isMine) {
+            this.showFailedModal = true
+            this.failed = true
+            return;
+          }
+          block.clicked = true
+
+          let maxY = y + 1
+          let maxX = x + 1
+          let neighborY = y - 1
+          let mineCount = 0
+          for (; neighborY <= maxY; neighborY++) {
+            if (neighborY < 0 || neighborY >= this.panelSize) continue
+
+            let neighborX = x - 1
+            for (; neighborX <= maxX; neighborX++) {  
+              if (neighborX < 0 || neighborX >= this.panelSize) continue
+              if (neighborX === x && neighborY === y) continue
+              
+              const neighbor = this.blockArray[neighborY][neighborX]
+              console.log(neighbor)
+              if (neighbor.isMine) {
+                mineCount++
+              }
+            }
+          }
+          block.value = mineCount
+        },
+        handleClickRetry () {
+          this.init()
+          this.showFailedModal = false
+        },
+        getMineBlockNumbers (mineSize, randomMax) {
+          const mineNumbers = []
+          for (let idx = 0; idx < mineSize; idx++) {
+            while (true) {
+              const random = this.getRandomInt(0, randomMax)
+              if (!mineNumbers.includes(random)) {
+                mineNumbers.push(random)
+                break;
+              }
+            }
+          }
+          return mineNumbers
+        },
+        getRandomInt (min, max) {
+          return Math.floor(Math.random() * (max - min)) + min
+        }
+      }
+    })
+  </script>
+</html>
