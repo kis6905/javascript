@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>quiz-app</title>
+
+  <style>
+    .question {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="questionContents">
+    <div>
+      <span class="question">질문?</span>
+    </div>
+    <div>
+      <input type="radio" name="answer1" value="1">1</input>
+    </div>
+    <div>
+      <input type="radio" name="answer1" value="2">2</input>
+    </div>
+    <div>
+      <input type="radio" name="answer1" value="3">3</input>
+    </div>
+    <div>
+      <input type="radio" name="answer1" value="4">4</input>
+    </div>
+  </div>
+  
+  <script>
+    const questionList = [
+      {
+        id: 1,
+        title: '좋아하는 색깔은?',
+        answers: [
+          { value: '1', text: '빨강' },
+          { value: '2', text: '파랑' },
+          { value: '3', text: '초록' },
+          { value: '4', text: '노랑' },
+        ]
+      },
+      {
+        id: 2,
+        title: '좋아하는 음식 종류는?',
+        answers: [
+          { value: '1', text: '한식' },
+          { value: '2', text: '중식' },
+          { value: '3', text: '일식' },
+          { value: '4', text: '양식' },
+        ]
+      },
+      {
+        id: 3,
+        title: '좋아하는 스포츠는?',
+        answers: [
+          { value: '1', text: '축구' },
+          { value: '2', text: '야구' },
+          { value: '3', text: '농구' },
+          { value: '4', text: '배구' },
+        ]
+      }
+    ]
+
+    // TODO
+
+  </script>
+</body>
+</html>
