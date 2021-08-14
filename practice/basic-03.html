@@ -4,16 +4,128 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title></title>
+  <title>store-app</title>
 
   <style>
-
+    body {
+      margin: 2rem;
+    }
+    .contents {
+      display: flex;
+      width: 600px;
+    }
+    .store-list-view {
+      padding: 10px;
+      flex: 1;
+      height: 300px;
+      overflow-y: auto;
+      border: solid #32a1ce;
+    }
+    .detail-view {
+      margin-left: 1rem;
+      padding: 10px;
+      flex: 1;
+      height: 300px;
+      overflow-y: auto;
+      border: solid #32a1ce;
+    }
+    .pa-2 {
+      padding: 2px;
+    }
+    .ml-2 {
+      margin-left: 2px;
+    }
+    .detail-title {
+      margin: 3px;
+      font-weight: bold;
+    }
+    .display-flex {
+      display: flex;
+    }
+    .flex-7 {
+      flex: 0.7;
+    }
+    .flex-5 {
+      flex: 0.5;
+    }
+    .flex-4 {
+      flex: 0.4;
+    }
+    .flex-3 {
+      flex: 0.3;
+    }
+    .flex-2 {
+      flex: 0.2;
+    }
+    .flex-1 {
+      flex: 0.1;
+    }
   </style>
 </head>
 <body>
-  
-  <script>
+  <div class="contents">
+    <div class="store-list-view">
+      <div>
+        <span>버거킹</span>
+        <button>메뉴</button>
+        <button>리뷰</button>
+      </div>
+    </div>
 
+    <div class="detail-view" id="menuView">
+      <div class="detail-title">
+        <span>버거킹 - 메뉴</span>
+      </div>
+      <div class="display-flex pa-2">
+        <div class="flex-7">메뉴명</div>
+        <div class="flex-3">가격</div>
+      </div>
+      <div id="menuList">
+        <div class="display-flex pa-2">
+          <div class="flex-7">와퍼</div>
+          <div class="flex-3 ml-2">6000</div>
+        </div>
+        <div class="display-flex pa-2">
+          <div class="flex-7">콰트로치즈와퍼</div>
+          <div class="flex-3 ml-2">7500</div>
+        </div>
+        <div class="display-flex pa-2">
+          <div class="flex-7">불고기버거</div>
+          <div class="flex-3 ml-2">4000</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-view" id="reviewView">
+      <div class="detail-title">
+        <span>버거킹 - 리뷰</span>
+      </div>
+      <div class="display-flex pa-2">
+        <div class="flex-5">내용</div>
+        <div class="flex-3 ml-2">ID</div>
+        <div class="flex-2 ml-2">별점</div>
+      </div>
+      <div id="reviewList">
+        <div class="display-flex pa-2">
+          <div class="flex-5">다른 지점보다 맛있어요</div>
+          <div class="flex-3 ml-2">leaf</div>
+          <div class="flex-2 ml-2">4</div>
+        </div>
+        <div class="display-flex pa-2">
+          <div class="flex-5">사람이 별로 없어서 빨리나오네요</div>
+          <div class="flex-3 ml-2">shnee</div>
+          <div class="flex-2 ml-2">5</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="basic-03-data.js"></script>
+  <script>
+    (function() {
+      const storeList = window.storeList;
+      // TODO
+    })();
   </script>
 </body>
 </html>
