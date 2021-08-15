@@ -25,7 +25,7 @@ window.storeList = [
     ],
     "reviews": [
       { "reviewId": "4251_r_1", "userId": "leaf", "contents": "맛있어요", "stars": 5 },
-      { "reviewId": "4251_r_2", "userId": "shnee", "contents": "맛있는데 짜네요", "stars": 4 },
+      { "reviewId": "4251_r_2", "userId": "shnee", "contents": "맛있는데 너무 달아요", "stars": 4 },
       { "reviewId": "4251_r_3", "userId": "aabbcc01", "contents": "점원이 친절해요", "stars": 5 },
       { "reviewId": "4251_r_4", "userId": "safe223", "contents": "맛없어요", "stars": 2 }
     ]
